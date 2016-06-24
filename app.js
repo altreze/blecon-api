@@ -26,20 +26,25 @@ app.use(session({
     saveUninitialized : false
 }));
 
-// Configuration passportjs
+// Passportjs Configuration
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configuration Content-Type
+// Content-Type configuration
 app.use('/', function(req, res, next) {
   var contype = req.headers['content-type'];
   if (!contype || contype.indexOf('application/json') !== 0)
     return res.send(400);
   next();
 });
+
+// Routes configuration
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/account-mgmt'));
 app.use('/places', require('./routes/place-mgmt'));
+app.use('/floors', require('./routes/floor-mgmt'));
+app.use('/departments', require('./routes/department-mgmt.js'));
+app.use('/beacons', require('./routes/beacon-mgmt.js'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
