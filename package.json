@@ -1,0 +1,35 @@
+{
+  "name": "blecon-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "mongo_server=$mongo_server mongo_port=$mongo_port mongo_user=$mongo_user mongo_pwd=$mongo_pwd mongo_db=$mongo_db DEBUG=blecon-api:* PORT=3000 NODE_ENV=development nodemon bin/www"
+  },
+  "engines": {
+    "node": ">= 4.2.1 <= 5",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "express": "~4.13.1",
+    "express-session": "^1.13.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^7.0.1",
+    "mongoose": "^4.5.1",
+    "mongoose-validator": "^1.2.5",
+    "morgan": "~1.6.1",
+    "node-restful": "^0.2.5",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "serve-favicon": "~2.3.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "debug": "~2.2.0"
+  }
+}

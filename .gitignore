@@ -1,0 +1,10 @@
+.DS_Store
+logs/*.log
+**/*.backup
+typings
+node_modules
+public/app/*.js
+public/app/*.map
+public/app/**/*.js
+public/app/**/*.map
+**/*.dmp
