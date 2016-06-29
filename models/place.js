@@ -32,7 +32,7 @@ var addressValidator = [
 var placeSchema  = new mongoose.Schema({
 	_id 			: { type: 'string', unique: true, default: uuid.v1 },
 	name 			: { type: 'string', required: true, unique  : true, validate: nameValidator },
-	organizationid	: { type: 'string', required: true, unique  : true, validate: nameValidator },
+	organizationid	: { type: 'string', required: true, validate: nameValidator },
 	address 		: { type: 'string', required: true, validate: addressValidator },
 	createdOn 		: { type: 'Date' , required: true, default : Date.now },
 	updateAt 		: { type: 'Date' },

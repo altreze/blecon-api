@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
+var helmet = require('helmet')
 
 var app = express();
 
@@ -25,6 +26,9 @@ app.use(session({
     resave            : false,
     saveUninitialized : false
 }));
+
+// Helmet configuration
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }))
 
 // Passportjs Configuration
 app.use(passport.initialize());

@@ -21,12 +21,16 @@ passport.use(new BearerStrategy(
 router.get('/', passport.authenticate('bearer', { session: false }), function(req, res, next) {
 	place.find(function (err, places) {
 		if (err) return next(err);
-			res.json(places);
+		res.json(places);
 	});
 });
 
 router.post('/', passport.authenticate('bearer', { session: false }), function(req, res, next) {
-	var place1 = new place({name: req.body['name'], address: req.body['address']});
+	var place1 = new place({
+						name: req.body['name'], 
+						address: req.body['address'], 
+						organizationid: req.body['organizationid']
+				});
 
 	place1.save(function(err) {
 		if (err)

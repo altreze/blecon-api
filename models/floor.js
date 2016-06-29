@@ -13,16 +13,18 @@ var nameValidator = [
 	// }),
 	validate({
 		validator: 'isLength',
-		arguments: [2, 100],
+		arguments: [2, 50],
 		message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
 	})
 ];
 
 var floorSchema  = new mongoose.Schema({
-	//_id 			: { type: 'string', unique: true, default: uuid.v1 },
-	name 		 	: { type: 'string', required: true, unique  : true },
-	organizationid	: { type: 'string', required: true, unique  : true, validate: nameValidator },
-	createdOn 	 	: { type: 'Date'  , required: true, default : Date.now }
+	_id 			: { type: 'string', required: true, unique: true, default: uuid.v1 },
+	name 			: { type: 'string', required: true, unique: true },
+	points			: [{ lat: 'string', lon: 'string' }], // WIP : Could migrate to GEOJson
+	organizationid	: { type: 'string', required: true, validate: nameValidator },
+	placeid			: { type: 'string', required: true, validate: nameValidator },
+	createdOn 	 	: { type: 'Date'  , default : Date.now }
 });
 
 module.exports = restful.model('floor', floorSchema);
