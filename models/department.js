@@ -3,7 +3,6 @@
 var restful               = require('node-restful');
 var mongoose              = restful.mongoose;
 var validate              = require('mongoose-validator');
-var passportLocalMongoose = require('passport-local-mongoose');
 var uuid                  = require('node-uuid');
 
 var nameValidator = [

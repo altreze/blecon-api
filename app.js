@@ -1,11 +1,10 @@
 var express = require('express');
-var path = require('path');
 var logger = require('./utils/logger');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var helmet = require('helmet')
+var helmet = require('helmet');
 
 var app = express();
 
@@ -13,7 +12,7 @@ var app = express();
 var config = require('./config');
 
 // Connection to MongoDB
-var mongo = require('./connection');
+var mongo = require('./connection'); // jshint ignore:line
 
 // Configuration middleware
 app.use(require('morgan')('combined', { "stream": logger.stream }));
@@ -28,7 +27,7 @@ app.use(session({
 }));
 
 // Helmet configuration
-app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }))
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 
 // Passportjs Configuration
 app.use(passport.initialize());
@@ -37,8 +36,9 @@ app.use(passport.session());
 // Content-Type configuration
 app.use('/', function(req, res, next) {
   var contype = req.headers['content-type'];
-  if (!contype || contype.indexOf('application/json') !== 0)
-    return res.send(400);
+  if (!contype || contype.indexOf('application/json') !== 0) {
+      return res.send(400);
+    }
   next();
 });
 
@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res, next) { // jshint ignore:line
     res.status(err.status || 500);
     res.json({
       message: err.message,
@@ -72,7 +72,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res, next) { // jshint ignore:line
   res.status(err.status || 500);
   res.json({
     message: err.message,

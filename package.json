@@ -1,10 +1,13 @@
 {
   "name": "blecon-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "mongo_server=$mongo_server mongo_port=$mongo_port mongo_user=$mongo_user mongo_pwd=$mongo_pwd mongo_db=$mongo_db DEBUG=blecon-api:* PORT=3000 NODE_ENV=development nodemon bin/www"
+    "lint": "jshint --reporter=node_modules/jshint-stylish app.js routes/*.js models/*.js || true",
+    "test:w": "mocha tests --watch",
+    "dev": "mongo_server=$mongo_server mongo_port=$mongo_port mongo_user=$mongo_user mongo_pwd=$mongo_pwd mongo_db=$mongo_db DEBUG=blecon-api:* PORT=3000 NODE_ENV=development nodemon bin/www",
+    "start:dev": "concurrently \"npm run dev\" \"npm run lint\" "
   },
   "engines": {
     "node": ">= 4.2.1 <= 5",
@@ -30,7 +33,11 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "concurrently": "^2.1.0",
+    "debug": "~2.2.0",
     "gulp": "^3.9.1",
-    "debug": "~2.2.0"
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0"
   }
 }
