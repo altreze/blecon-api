@@ -1,10 +1,11 @@
-/// user management api
+// Floor management
 var config         = require('../config');
-var express = require('express');
-var router = express.Router();
+var express        = require('express');
+var router         = express.Router();
 var jwt            = require('jsonwebtoken');
 var passport       = require('passport');
 var BearerStrategy = require('passport-http-bearer').Strategy;
+var floor          = require('../models/floor');
 var place        = require('../models/place');
 
 // Bearer Strategy configuration
@@ -19,31 +20,38 @@ passport.use(new BearerStrategy(
 ));
 
 router.get('/', passport.authenticate('bearer', { session: false }), function(req, res, next) {
-	place.find(function (err, places) {
+	floor.find(function (err, floors) {
 		if (err) return next(err);
-		res.json(places);
+		res.json(floors);
 	});
 });
 
 router.post('/', passport.authenticate('bearer', { session: false }), function(req, res, next) {
-	var place1 = new place({
-						name: req.body['name'], 
-						address: req.body['address'], 
-						organizationid: req.body['organizationid']
-				});
-
-	place1.save(function(err) {
+	place.findById(req.body['placeid'], function(err, place) {
 		if (err)
 			res.send(err);
-		res.json({ code: 200, message: 'place saved successfully', error: null});
+		
+		// WIP : Must add geo points 
+		var floor1 = new floor({ 
+			name: req.body['name'], 
+			placeid: req.body['placeid'], 
+			organizationid: place.organizationid,
+			points: req.body['points']
+		});
+
+		floor1.save(function(err) {
+			if (err)
+				res.send(err);
+			res.json({ code: 200, message: 'floor saved successfully', error: null});
+		});
 	});
 });
 
 router.get('/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
-	place.findById(req.params.id, function(err, place) {
+	floor.findById(req.params.id, function(err, floor) {
 		if (err)
 			res.send(err);
-		res.json(place);
+		res.json(floor);
 	})
 });
 
@@ -52,10 +60,10 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
 });
 
 router.delete('/:id', passport.authenticate('bearer', { session: false }), function(req, res){
-	place.remove({_id: req.params.id}, function(err, place) {
+	floor.remove({_id: req.params.id}, function(err, floor) {
 		if (err)
 			res.send(err);
-		res.json({code: 200, message: 'place deleted successfully', error: null});
+		res.json({code: 200, message: 'floor deleted successfully', error: null});
 	});
 });
 
