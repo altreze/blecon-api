@@ -9,3 +9,7 @@ Blecon-api uses a number of open source projects :
 * [Mongodb] - leading nosql database
 * [JWT] - for authentication purpose
 * [Passport] - nothing's beating your passport
+
+
+[express]: <http://expressjs.com>
+[node.js]: <http://nodejs.org>
