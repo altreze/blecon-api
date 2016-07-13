@@ -4,7 +4,6 @@ var restful               = require('node-restful');
 var mongoose              = restful.mongoose;
 var validate              = require('mongoose-validator');
 var passportLocalMongoose = require('passport-local-mongoose');
-var uuid                  = require('node-uuid');
 
 var emailValidator = [
 	validate({
@@ -30,17 +29,17 @@ var nameValidator = [
 	})
 ];
 
+var organizationSchema = new mongoose.Schema({
+	name: { type: 'string', required: true, unique: true, validate: nameValidator }
+});
+
 var accountSchema  = new mongoose.Schema({
-	email 		 : { type: 'string', required: true, unique  : true, validate: emailValidator },
-	phone 		 : { type: 'string', required: true, unique  : true },
-	username 	 : { type: 'string', required: true, unique  : true, validate: nameValidator },
-	revoked		 : { type: Boolean , required: true, default : false },
-	createdOn 	 : { type: 'Date'  , required: true, default : Date.now },
-	organization : {
-		uid  : { type: 'string', unique: true, default: uuid.v1 },
-		name : { type: 'string', validate: nameValidator },
-		country : { type: 'string', validate: nameValidator }
-	}
+	email 		: { type: 'string', required: true, unique  : true, validate: emailValidator },
+	phone 		: { type: 'string', required: true, unique  : true },
+	username 	: { type: 'string', required: true, unique  : true, validate: nameValidator },
+	revoked		: { type: Boolean , required: true, default : false },
+	createdOn 	: { type: 'Date'  , required: true, default : Date.now }
+	// ,	organization : {type: organizationSchema, required: true}
 });
 
 accountSchema.plugin(passportLocalMongoose);

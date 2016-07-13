@@ -53,12 +53,13 @@ router.post('/login', function(req, res, next) {
 router.post('/register', function(req, res) {
 	account.register(new account({email: req.body['email'], 
 		phone: req.body['phone'],
-		username: req.body['username']}), req.body['password'], function(err, account) {
-			if (err)
-				res.status(400).send(err);
-			else {
-				res.json({ code: 200, message: 'account saved successfully', error: null });
-			}
+		username: req.body['username']}), req.body['password'], function(err, user) {
+
+		if (err)
+			res.status(400).send(err);
+		else {
+			res.json({ code: 200, message: 'account saved successfully', error: null });
+		}
 	})
 });
 

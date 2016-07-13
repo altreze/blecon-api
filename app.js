@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var helmet = require('helmet')
 
 var app = express();
 
@@ -27,28 +26,20 @@ app.use(session({
     saveUninitialized : false
 }));
 
-// Helmet configuration
-app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }))
-
-// Passportjs Configuration
+// Configuration passportjs
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Content-Type configuration
+// Configuration Content-Type
 app.use('/', function(req, res, next) {
   var contype = req.headers['content-type'];
   if (!contype || contype.indexOf('application/json') !== 0)
     return res.send(400);
   next();
 });
-
-// Routes configuration
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/account-mgmt'));
 app.use('/places', require('./routes/place-mgmt'));
-app.use('/floors', require('./routes/floor-mgmt'));
-app.use('/departments', require('./routes/department-mgmt.js'));
-app.use('/beacons', require('./routes/beacon-mgmt.js'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
