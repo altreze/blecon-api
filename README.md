@@ -13,3 +13,7 @@ Blecon-api uses a number of open source projects :
 
 [express]: <http://expressjs.com>
 [node.js]: <http://nodejs.org>
+[Gulp]: <http://gulpjs.com>
+[Mongodb]: <http://mongodb.org>
+[JWT]: <http://jwt.io>
+[Passport]: <http://passportjs.org>
